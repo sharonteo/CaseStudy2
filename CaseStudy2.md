@@ -1,5 +1,5 @@
 # Case Study 2: Chulwalar Exports Forecasting Model
-Oscar Padilla  
+Sharon Teo, Oscar Padilla, Harry Bhasin  
 July 27, 2016  
 
 # Set Up
@@ -9,7 +9,15 @@ library(fpp) # for time series forecasting and analysis
 ```
 
 ```
+## Warning: package 'fpp' was built under R version 3.3.1
+```
+
+```
 ## Loading required package: forecast
+```
+
+```
+## Warning: package 'forecast' was built under R version 3.3.1
 ```
 
 ```
@@ -40,11 +48,23 @@ library(fpp) # for time series forecasting and analysis
 ```
 
 ```
+## Warning: package 'fma' was built under R version 3.3.1
+```
+
+```
 ## Loading required package: tseries
 ```
 
 ```
+## Warning: package 'tseries' was built under R version 3.3.1
+```
+
+```
 ## Loading required package: expsmooth
+```
+
+```
+## Warning: package 'expsmooth' was built under R version 3.3.1
 ```
 
 ```
@@ -55,16 +75,17 @@ library(fpp) # for time series forecasting and analysis
 library(forecast) # for some other forecasting models
 library(Metrics)
 library(ggplot2)
-setwd("/Users/GS7271/Documents/MSDS6306/Unit10/ChulwalarCase/CaseStudy2")
+# setwd("/Users/GS7271/Documents/MSDS6306/Unit10/ChulwalarCase/CaseStudy2")
+setwd("C:/Harry/Data_Science/SMU/MSDS_6306_4033/Week10/CaseStudy_2")
 ```
 
 # Import the data
 
 ```r
 # Import raw .csv files
-ImportedAsIsData <- read.csv(file="ImportedAsIsDataChulwalar.csv", header = F, sep=";", fill = T) 
-ImportedPlanData <- read.csv(file="ImportedPlanDataChulwalar.csv", header = F, sep=";", fill = T) 
-ImportedIndicators <- read.csv(file="ImportedIndicatorsChulwalar.csv", header = F, sep=";", fill = T)
+ImportedAsIsData <- read.csv(file="Data/ImportedAsIsDataChulwalar.csv", header = F, sep=";", fill = T) 
+ImportedPlanData <- read.csv(file="Data/ImportedPlanDataChulwalar.csv", header = F, sep=";", fill = T) 
+ImportedIndicators <- read.csv(file="Data/ImportedIndicatorsChulwalar.csv", header = F, sep=";", fill = T)
 ```
 
 # Transform data into time series
@@ -100,14 +121,14 @@ TotalAsIs_stl <- stl(TotalAsIs, s.window=5)
 plot(TotalAsIs_stl, col="black", main="TotalAsIs_stl")
 ```
 
-![](OPadilla_CaseStudy2_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+![](CaseStudy2_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
 
 ```r
 plot(TotalAsIs)
 lines(TotalAsIs_stl$time.series[,"trend"], col = "red")
 ```
 
-![](OPadilla_CaseStudy2_files/figure-html/unnamed-chunk-4-2.png)<!-- -->
+![](CaseStudy2_files/figure-html/unnamed-chunk-4-2.png)<!-- -->
 
 ## Modify seasonal component to a monthly base
 The modification of the seasonlity component can also be changed into a monthly view. It only makes sense to do this if the seasonality component as the trend looks almost identical and the remainder is then randomly spread.
@@ -117,7 +138,7 @@ The modification of the seasonlity component can also be changed into a monthly 
 monthplot(TotalAsIs_stl$time.series[,"seasonal"], main="", ylab="Seasonal")
 ```
 
-![](OPadilla_CaseStudy2_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
+![](CaseStudy2_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
 
 # Correlation with external indicators
 
@@ -129,7 +150,7 @@ CEPI <- ts(CEPIVector , start=c(2008,1), end=c(2013,12), frequency=12)
 plot(CEPI, main="CEPI")
 ```
 
-![](OPadilla_CaseStudy2_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
+![](CaseStudy2_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
 
 ```r
 cor(TotalAsIs, CEPI)
@@ -178,7 +199,7 @@ plot(TotalAsIs_stl$time.series[,"trend"], col = "red", main = "TotalAsIs TREND =
 lines(-17401337 + 200320*CEPI, type = "o")
 ```
 
-![](OPadilla_CaseStudy2_files/figure-html/unnamed-chunk-6-2.png)<!-- -->
+![](CaseStudy2_files/figure-html/unnamed-chunk-6-2.png)<!-- -->
 
 ## Average monthly temperatures in Chulwalar
 
@@ -189,7 +210,7 @@ plot(Temperature, main="Temperature")
 lines(5 + TotalAsIs_stl$time.series[,"seasonal"]/100000, type ="o", col = "red", ylab = "Seasonality")
 ```
 
-![](OPadilla_CaseStudy2_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
+![](CaseStudy2_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
 
 ```r
 cor(TotalAsIs, Temperature)
@@ -215,7 +236,7 @@ AEPI <- ts(AEPIVector, start=c(2008,1), end=c(2013,12), frequency=12)
 plot(AEPI, main="AEPI")
 ```
 
-![](OPadilla_CaseStudy2_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
+![](CaseStudy2_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
 
 ```r
 cor(TotalAsIs, AEPI)
@@ -233,7 +254,7 @@ NationalHolidays <- ts(NationalHolidaysVector, start=c(2008,1), end=c(2013,12), 
 plot(NationalHolidays, main="NationalHolidays")
 ```
 
-![](OPadilla_CaseStudy2_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
+![](CaseStudy2_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
 
 ```r
 cor(TotalAsIs, NationalHolidays)
@@ -251,7 +272,7 @@ Inflation <- ts(InflationVector, start=c(2008,1), end=c(2013,12), frequency=12)
 plot(Inflation, main="Inflation")
 ```
 
-![](OPadilla_CaseStudy2_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
+![](CaseStudy2_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
 
 ```r
 cor(TotalAsIs, Inflation)
@@ -269,7 +290,7 @@ IndependenceDayPresents <- ts(IndependenceDayPresentsVector, start=c(2008,1), en
 plot(IndependenceDayPresents, main="IndependenceDayPresents")
 ```
 
-![](OPadilla_CaseStudy2_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
+![](CaseStudy2_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
 
 ```r
 cor(TotalAsIs, IndependenceDayPresents)
@@ -343,7 +364,7 @@ lines(TotalAsIs_2014, col="red")
 legend("topleft", lty = 1, col = c(1,"green"), c("data", expression(alpha == 0.671)), pch=1)
 ```
 
-![](OPadilla_CaseStudy2_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
+![](CaseStudy2_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
 
 ```r
 # Now we will compare our model against actual 2014 figures
@@ -416,7 +437,7 @@ plot(Model_holt_1)
 lines(TotalAsIs_2014, col="red")
 ```
 
-![](OPadilla_CaseStudy2_files/figure-html/unnamed-chunk-13-1.png)<!-- -->
+![](CaseStudy2_files/figure-html/unnamed-chunk-13-1.png)<!-- -->
 
 ```r
 # Now we will compare our model against actual 2014 figures
@@ -468,18 +489,18 @@ summary(Model_holt_2)
 ## 
 ## Forecasts:
 ##          Point Forecast   Lo 80   Hi 80   Lo 95    Hi 95
-## Jan 2014        4488281 3054308 5926119 2312163  6688533
-## Feb 2014        4502175 2879623 6276979 2120290  7450299
-## Mar 2014        4516113 2661384 6479879 1982958  7920170
-## Apr 2014        4530094 2504012 6786831 1810923  8450633
-## May 2014        4544118 2366671 7031211 1694020  9046329
-## Jun 2014        4558186 2258474 7334741 1509477  9624421
-## Jul 2014        4572297 2172415 7469624 1474785 10152932
-## Aug 2014        4586452 2073692 7680026 1435221 10521221
-## Sep 2014        4600650 1980952 7810740 1292021 11227372
-## Oct 2014        4614893 1942472 8030288 1243822 11637870
-## Nov 2014        4629180 1814709 8180892 1154271 11924232
-## Dec 2014        4643510 1717930 8132446 1095138 12256534
+## Jan 2014        4488281 3087199 5868963 2390462  6601234
+## Feb 2014        4502175 2869816 6245987 2146264  7324030
+## Mar 2014        4516113 2672996 6552528 1890451  7892953
+## Apr 2014        4530094 2496659 6826006 1807207  8432713
+## May 2014        4544118 2341809 7018254 1710978  9019072
+## Jun 2014        4558186 2236987 7338077 1546777  9491747
+## Jul 2014        4572297 2165397 7500905 1462090  9855699
+## Aug 2014        4586452 2035874 7601230 1353061 10328700
+## Sep 2014        4600650 1912326 7919521 1237975 10799973
+## Oct 2014        4614893 1844380 8001236 1203065 11189400
+## Nov 2014        4629180 1804561 8117561 1191373 11538062
+## Dec 2014        4643510 1720559 8365779 1094055 12077475
 ```
 
 ```r
@@ -487,7 +508,7 @@ plot(Model_holt_2)
 lines(TotalAsIs_2014, col="red")
 ```
 
-![](OPadilla_CaseStudy2_files/figure-html/unnamed-chunk-13-2.png)<!-- -->
+![](CaseStudy2_files/figure-html/unnamed-chunk-13-2.png)<!-- -->
 
 ```r
 # Now we will compare our model against actual 2014 figures
@@ -561,7 +582,7 @@ plot(Model_holt_3)
 lines(TotalAsIs_2014, col="red")
 ```
 
-![](OPadilla_CaseStudy2_files/figure-html/unnamed-chunk-14-1.png)<!-- -->
+![](CaseStudy2_files/figure-html/unnamed-chunk-14-1.png)<!-- -->
 
 ```r
 # Now we will compare our model against actual 2014 figures
@@ -613,18 +634,18 @@ summary(Model_holt_4)
 ## 
 ## Forecasts:
 ##          Point Forecast   Lo 80   Hi 80   Lo 95    Hi 95
-## Jan 2014        4470648 3095326 5896346 2355333  6634145
-## Feb 2014        4473164 2837861 6183574 2076819  7282861
-## Mar 2014        4475630 2607475 6516938 1910769  7906482
-## Apr 2014        4478047 2456416 6737049 1725591  8408010
-## May 2014        4480418 2321795 6994686 1591436  9139392
-## Jun 2014        4482742 2159627 7184702 1470462  9476382
-## Jul 2014        4485020 2118316 7398823 1443014  9812439
-## Aug 2014        4487253 2022047 7562862 1332352 10575174
-## Sep 2014        4489443 1865747 7759279 1213458 11132124
-## Oct 2014        4491589 1843628 7941214 1163687 11108893
-## Nov 2014        4493694 1738705 8117004 1070918 11425208
-## Dec 2014        4495757 1650041 8122345 1013186 12252745
+## Jan 2014        4470648 3025762 5872777 2362628  6578048
+## Feb 2014        4473164 2810820 6271479 2064693  7461358
+## Mar 2014        4475630 2589610 6515758 1904457  7844980
+## Apr 2014        4478047 2460093 6836837 1738640  8403915
+## May 2014        4480418 2323223 7012523 1620157  8859124
+## Jun 2014        4482742 2212504 7159969 1525122  9383127
+## Jul 2014        4485020 2110724 7515536 1386583  9858334
+## Aug 2014        4487253 2020525 7605251 1369642 10602174
+## Sep 2014        4489443 1963105 7746811 1277334 10666221
+## Oct 2014        4491589 1843118 7984538 1200378 11521757
+## Nov 2014        4493694 1755648 8124033 1116992 11671768
+## Dec 2014        4495757 1717020 8200134 1083520 12008317
 ```
 
 ```r
@@ -632,7 +653,7 @@ plot(Model_holt_4)
 lines(TotalAsIs_2014, col="red")
 ```
 
-![](OPadilla_CaseStudy2_files/figure-html/unnamed-chunk-14-2.png)<!-- -->
+![](CaseStudy2_files/figure-html/unnamed-chunk-14-2.png)<!-- -->
 
 ```r
 # Now we will compare our model against actual 2014 figures
@@ -652,25 +673,25 @@ RMSE_DAMPEXPO
 plot(Model_holt_1$model$state)
 ```
 
-![](OPadilla_CaseStudy2_files/figure-html/unnamed-chunk-14-3.png)<!-- -->
+![](CaseStudy2_files/figure-html/unnamed-chunk-14-3.png)<!-- -->
 
 ```r
 plot(Model_holt_2$model$state)
 ```
 
-![](OPadilla_CaseStudy2_files/figure-html/unnamed-chunk-14-4.png)<!-- -->
+![](CaseStudy2_files/figure-html/unnamed-chunk-14-4.png)<!-- -->
 
 ```r
 plot(Model_holt_3$model$state)
 ```
 
-![](OPadilla_CaseStudy2_files/figure-html/unnamed-chunk-14-5.png)<!-- -->
+![](CaseStudy2_files/figure-html/unnamed-chunk-14-5.png)<!-- -->
 
 ```r
 plot(Model_holt_4$model$state)
 ```
 
-![](OPadilla_CaseStudy2_files/figure-html/unnamed-chunk-14-6.png)<!-- -->
+![](CaseStudy2_files/figure-html/unnamed-chunk-14-6.png)<!-- -->
 
 ```r
 plot(Model_holt_1, plot.conf=FALSE, ylab="Exports Chulwalar", xlab="Year", main="", fcol="white")
@@ -687,7 +708,7 @@ lines(Model_holt_4$mean, col="orange", type="o")
 legend("topleft",lty=1, col=c(1,"purple","blue","red","green","orange"), c("data", "SES","Holts auto", "Exponential", "Additive Damped", "Multiplicative Damped"),pch=1)
 ```
 
-![](OPadilla_CaseStudy2_files/figure-html/unnamed-chunk-14-7.png)<!-- -->
+![](CaseStudy2_files/figure-html/unnamed-chunk-14-7.png)<!-- -->
 
 ## Holt-Winter's seasonal method   
 Holt and Winters have expanded Holt's model further to include the seasonality aspect. The parameter gamma, which is for smoothing the seasonality, was added to achieve this. The values are better than the models without seasonality. This is logical, since the data is strongly influenced by seasonality.  In the following model, none of the parameters are given so that they will be optimised automatically. There are two models: one using an additive error model method and one using a multiplicative error model. The additive model gives slightly better results than the multiplicative model.
@@ -751,7 +772,7 @@ plot(Model_hw_1)
 lines(TotalAsIs_2014, col="red")
 ```
 
-![](OPadilla_CaseStudy2_files/figure-html/unnamed-chunk-15-1.png)<!-- -->
+![](CaseStudy2_files/figure-html/unnamed-chunk-15-1.png)<!-- -->
 
 ```r
 # Now we will compare our model against actual 2014 figures
@@ -824,7 +845,7 @@ plot(Model_hw_2)
 lines(TotalAsIs_2014, col="red")
 ```
 
-![](OPadilla_CaseStudy2_files/figure-html/unnamed-chunk-15-2.png)<!-- -->
+![](CaseStudy2_files/figure-html/unnamed-chunk-15-2.png)<!-- -->
 
 ```r
 # Now we will compare our model against actual 2014 figures
@@ -854,7 +875,7 @@ lines(TotalAsIs_2014, col = "red")
 legend("topleft",lty=1, pch=1, col=1:3, c("data","Holt Winters' Additive","Holt Winters' Multiplicative"))
 ```
 
-![](OPadilla_CaseStudy2_files/figure-html/unnamed-chunk-16-1.png)<!-- -->
+![](CaseStudy2_files/figure-html/unnamed-chunk-16-1.png)<!-- -->
 
 ```r
 # Output instruction for the data export of the results for further use in Excel.
@@ -889,21 +910,11 @@ g <- ggplot(RMSE_table, aes(rmse_labels, rmse_values))
 g + geom_bar(stat = "identity") + scale_fill_grey()
 ```
 
-![](OPadilla_CaseStudy2_files/figure-html/unnamed-chunk-17-1.png)<!-- -->
+![](CaseStudy2_files/figure-html/unnamed-chunk-17-1.png)<!-- -->
 
 ```r
 compareModels <- as.data.frame(compareModels)
-attach(compareModels)
-```
-
-```
-## The following objects are masked _by_ .GlobalEnv:
-## 
-##     Damped, DampedExpo, Holt_Exponential, Holt_Linear, HW_Add,
-##     HW_Mul, SES
-```
-
-```r
+# attach(compareModels)
 compareModels$SES_error <- TotalAsIs_2014 - SES
 compareModels$HotlLinear_error <- TotalAsIs_2014 - Holt_Linear
 compareModels$HotlExponential_error <- TotalAsIs_2014 - Holt_Exponential
@@ -915,7 +926,7 @@ errors_comp <- compareModels[, 9:15]
 boxplot(errors_comp, cex.axis=0.7, las = 2)
 ```
 
-![](OPadilla_CaseStudy2_files/figure-html/unnamed-chunk-17-2.png)<!-- -->
+![](CaseStudy2_files/figure-html/unnamed-chunk-17-2.png)<!-- -->
 
 Boxplot confirms that the Holt-Winter's models have the best performance vs. 2014 actual data.
 All other 

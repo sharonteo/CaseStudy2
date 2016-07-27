@@ -1,6 +1,6 @@
 ---
 title: "Case Study 2: Chulwalar Exports Forecasting Model"
-author: "Oscar Padilla"
+author: "Sharon Teo, Oscar Padilla, Harry Bhasin"
 date: "July 27, 2016"
 output:
   html_document:
@@ -13,15 +13,16 @@ library(fpp) # for time series forecasting and analysis
 library(forecast) # for some other forecasting models
 library(Metrics)
 library(ggplot2)
-setwd("/Users/GS7271/Documents/MSDS6306/Unit10/ChulwalarCase/CaseStudy2")
+# setwd("/Users/GS7271/Documents/MSDS6306/Unit10/ChulwalarCase/CaseStudy2")
+setwd("C:/Harry/Data_Science/SMU/MSDS_6306_4033/Week10/CaseStudy_2")
 ```
 
 # Import the data
 ```{r}
 # Import raw .csv files
-ImportedAsIsData <- read.csv(file="ImportedAsIsDataChulwalar.csv", header = F, sep=";", fill = T) 
-ImportedPlanData <- read.csv(file="ImportedPlanDataChulwalar.csv", header = F, sep=";", fill = T) 
-ImportedIndicators <- read.csv(file="ImportedIndicatorsChulwalar.csv", header = F, sep=";", fill = T)
+ImportedAsIsData <- read.csv(file="Data/ImportedAsIsDataChulwalar.csv", header = F, sep=";", fill = T) 
+ImportedPlanData <- read.csv(file="Data/ImportedPlanDataChulwalar.csv", header = F, sep=";", fill = T) 
+ImportedIndicators <- read.csv(file="Data/ImportedIndicatorsChulwalar.csv", header = F, sep=";", fill = T)
 ```
 
 # Transform data into time series
@@ -285,7 +286,7 @@ g <- ggplot(RMSE_table, aes(rmse_labels, rmse_values))
 g + geom_bar(stat = "identity") + scale_fill_grey()
 
 compareModels <- as.data.frame(compareModels)
-attach(compareModels)
+# attach(compareModels)
 compareModels$SES_error <- TotalAsIs_2014 - SES
 compareModels$HotlLinear_error <- TotalAsIs_2014 - Holt_Linear
 compareModels$HotlExponential_error <- TotalAsIs_2014 - Holt_Exponential
