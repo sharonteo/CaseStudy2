@@ -13,7 +13,7 @@ library(fpp) # for time series forecasting and analysis
 library(forecast) # for some other forecasting models
 library(Metrics)
 library(ggplot2)
-setwd("/Users/GS7271/Documents/MSDS6306/Unit10/ChulwalarCase")
+setwd("/Users/GS7271/Documents/MSDS6306/Unit10/ChulwalarCase/CaseStudy2")
 ```
 
 # Import the data
@@ -255,7 +255,6 @@ RMSE_HW_MUL
 ##Performance comparison of the forecasting models
 ```{r}
 colnames(compareModels) <- c("TotalAsIs2014", "SES", "Holt_Linear", "Holt_Exponential", "Damped", "DampedExpo", "HW_Add", "HW_Mul")
-compareModels
 
 plot(Model_hw_1, ylab = "Exports Chulwalar", plot.conf=FALSE, fcol="white", xlab="Year")
 lines(fitted(Model_hw_1), col="blue", lty=2)
@@ -277,6 +276,19 @@ RMSE_table <- data.frame(rmse_labels, rmse_values)
 RMSE_table
 g <- ggplot(RMSE_table, aes(rmse_labels, rmse_values))
 g + geom_bar(stat = "identity") + scale_fill_grey()
+
+compareModels <- as.data.frame(compareModels)
+attach(compareModels)
+compareModels$SES_error <- TotalAsIs_2014 - SES
+compareModels$HotlLinear_error <- TotalAsIs_2014 - Holt_Linear
+compareModels$HotlExponential_error <- TotalAsIs_2014 - Holt_Exponential
+compareModels$Damped_error <- TotalAsIs_2014 - Damped
+compareModels$DampedExpo_error <- TotalAsIs_2014 - DampedExpo
+compareModels$HW_Add_error <- TotalAsIs_2014 - HW_Add
+compareModels$HW_Mul_error <- TotalAsIs_2014 - HW_Mul
+errors_comp <- compareModels[, 9:15]
+boxplot(errors_comp, cex.axis=0.7, las = 2)
+
 ```
 
 Holt-Winter's Multiplicative model has the lowest RMSE (235296.6) when measured against historical (test) data.

@@ -55,7 +55,7 @@ library(fpp) # for time series forecasting and analysis
 library(forecast) # for some other forecasting models
 library(Metrics)
 library(ggplot2)
-setwd("/Users/GS7271/Documents/MSDS6306/Unit10/ChulwalarCase")
+setwd("/Users/GS7271/Documents/MSDS6306/Unit10/ChulwalarCase/CaseStudy2")
 ```
 
 # Import the data
@@ -441,18 +441,18 @@ summary(Model_holt_2)
 ## 
 ## Forecasts:
 ##          Point Forecast   Lo 80   Hi 80   Lo 95    Hi 95
-## Jan 2014        4488281 3113381 5872132 2306946  6613899
-## Feb 2014        4502175 2909019 6260171 2228392  7439552
-## Mar 2014        4516113 2723560 6579120 2004915  8019238
-## Apr 2014        4530094 2523254 6844671 1801374  8507279
-## May 2014        4544118 2402922 7105834 1667776  8907345
-## Jun 2014        4558186 2274597 7232566 1621620  9516695
-## Jul 2014        4572297 2179287 7460782 1461084  9789634
-## Aug 2014        4586452 2053376 7643838 1389970 10276841
-## Sep 2014        4600650 1996907 7877387 1305481 10769754
-## Oct 2014        4614893 1883443 7872917 1214746 10951511
-## Nov 2014        4629180 1838931 7938408 1144201 11306793
-## Dec 2014        4643510 1688277 8190635 1067416 11740980
+## Jan 2014        4488281 3099215 5887857 2345542  6629158
+## Feb 2014        4502175 2861357 6257079 2128116  7323529
+## Mar 2014        4516113 2667444 6499741 1898203  7817314
+## Apr 2014        4530094 2553797 6769361 1792569  8388530
+## May 2014        4544118 2373156 6985667 1678482  9114753
+## Jun 2014        4558186 2275155 7302086 1566299  9479338
+## Jul 2014        4572297 2123684 7420056 1443915  9937446
+## Aug 2014        4586452 2055678 7566505 1390141 10463548
+## Sep 2014        4600650 1954993 7774307 1278971 10820057
+## Oct 2014        4614893 1888944 7962505 1217511 11223463
+## Nov 2014        4629180 1789389 8208893 1137900 11860468
+## Dec 2014        4643510 1744766 8250227 1085250 12525380
 ```
 
 ```r
@@ -586,18 +586,18 @@ summary(Model_holt_4)
 ## 
 ## Forecasts:
 ##          Point Forecast   Lo 80   Hi 80   Lo 95    Hi 95
-## Jan 2014        4470648 3024548 5841207 2331511  6550453
-## Feb 2014        4473164 2833483 6226196 2123994  7300871
-## Mar 2014        4475630 2609313 6511404 1923056  7896832
-## Apr 2014        4478047 2503211 6678466 1763632  8561910
-## May 2014        4480418 2298089 6962794 1600539  8966503
-## Jun 2014        4482742 2174102 7207340 1538860  9383637
-## Jul 2014        4485020 2075899 7372299 1376640  9893891
-## Aug 2014        4487253 1946452 7451375 1302358 10072773
-## Sep 2014        4489443 1908289 7795931 1257133 11007961
-## Oct 2014        4491589 1821442 7851059 1135448 10985534
-## Nov 2014        4493694 1724030 7977142 1086429 11707921
-## Dec 2014        4495757 1667557 8161885 1061679 11903225
+## Jan 2014        4470648 3065606 5920192 2285464  6646570
+## Feb 2014        4473164 2860475 6186556 2089857  7227173
+## Mar 2014        4475630 2697600 6506055 1947047  7893279
+## Apr 2014        4478047 2513397 6768012 1833721  8429515
+## May 2014        4480418 2368637 6946647 1662933  8868422
+## Jun 2014        4482742 2208833 7140215 1564375  9341356
+## Jul 2014        4485020 2133398 7370588 1425982 10087731
+## Aug 2014        4487253 2030871 7572056 1352135 10461399
+## Sep 2014        4489443 1916720 7627629 1249170 10792228
+## Oct 2014        4491589 1831636 7814997 1131244 10923845
+## Nov 2014        4493694 1737555 8055948 1086413 11400754
+## Dec 2014        4495757 1643257 8016767 1019702 11717618
 ```
 
 ```r
@@ -817,39 +817,7 @@ RMSE_HW_MUL
 
 ```r
 colnames(compareModels) <- c("TotalAsIs2014", "SES", "Holt_Linear", "Holt_Exponential", "Damped", "DampedExpo", "HW_Add", "HW_Mul")
-compareModels
-```
 
-```
-##          TotalAsIs2014     SES Holt_Linear Holt_Exponential  Damped
-## Jan 2014       4308161 4466448     4536367          4488281 4483618
-## Feb 2014       4155378 4466448     4581298          4502175 4493914
-## Mar 2014       3924332 4466448     4626230          4516113 4504003
-## Apr 2014       3659121 4466448     4671161          4530094 4513891
-## May 2014       3898758 4466448     4716092          4544118 4523581
-## Jun 2014       3313891 4466448     4761024          4558186 4533077
-## Jul 2014       3595106 4466448     4805955          4572297 4542383
-## Aug 2014       3502426 4466448     4850886          4586452 4551503
-## Sep 2014       5619059 4466448     4895818          4600650 4560440
-## Oct 2014       5274287 4466448     4940749          4614893 4569199
-## Nov 2014       4841693 4466448     4985680          4629180 4577783
-## Dec 2014       4664854 4466448     5030612          4643510 4586195
-##          DampedExpo  HW_Add  HW_Mul
-## Jan 2014    4470648 4141204 4226941
-## Feb 2014    4473164 4147309 4123665
-## Mar 2014    4475630 4318537 4350808
-## Apr 2014    4478047 3642744 3494208
-## May 2014    4480418 3704865 3484738
-## Jun 2014    4482742 3488859 3162774
-## Jul 2014    4485020 3336738 2912399
-## Aug 2014    4487253 3750478 3521645
-## Sep 2014    4489443 5137771 5540988
-## Oct 2014    4491589 4772337 5020487
-## Nov 2014    4493694 4988809 5299729
-## Dec 2014    4495757 4629097 4740169
-```
-
-```r
 plot(Model_hw_1, ylab = "Exports Chulwalar", plot.conf=FALSE, fcol="white", xlab="Year")
 lines(fitted(Model_hw_1), col="blue", lty=2)
 lines(fitted(Model_hw_2), col="green", lty=2)
@@ -892,6 +860,32 @@ g + geom_bar(stat = "identity") + scale_fill_grey()
 ```
 
 ![](OPadilla_CaseStudy2_files/figure-html/unnamed-chunk-17-1.png)<!-- -->
+
+```r
+compareModels <- as.data.frame(compareModels)
+attach(compareModels)
+```
+
+```
+## The following objects are masked _by_ .GlobalEnv:
+## 
+##     Damped, DampedExpo, Holt_Exponential, Holt_Linear, HW_Add,
+##     HW_Mul, SES
+```
+
+```r
+compareModels$SES_error <- TotalAsIs_2014 - SES
+compareModels$HotlLinear_error <- TotalAsIs_2014 - Holt_Linear
+compareModels$HotlExponential_error <- TotalAsIs_2014 - Holt_Exponential
+compareModels$Damped_error <- TotalAsIs_2014 - Damped
+compareModels$DampedExpo_error <- TotalAsIs_2014 - DampedExpo
+compareModels$HW_Add_error <- TotalAsIs_2014 - HW_Add
+compareModels$HW_Mul_error <- TotalAsIs_2014 - HW_Mul
+errors_comp <- compareModels[, 9:15]
+boxplot(errors_comp, cex.axis=0.7, las = 2)
+```
+
+![](OPadilla_CaseStudy2_files/figure-html/unnamed-chunk-17-2.png)<!-- -->
 
 Holt-Winter's Multiplicative model has the lowest RMSE (235296.6) when measured against historical (test) data.
 However it's only the second best peformance against 2014 actual data 311363.4
