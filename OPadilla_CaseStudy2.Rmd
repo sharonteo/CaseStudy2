@@ -71,9 +71,13 @@ monthplot(TotalAsIs_stl$time.series[,"seasonal"], main="", ylab="Seasonal")
 CEPIVector <- c(ImportedIndicators[2:13,2],ImportedIndicators[2:13,3],ImportedIndicators[2:13,4],ImportedIndicators[2:13,5],ImportedIndicators[2:13,6],ImportedIndicators[2:13,7])
 CEPI <- ts(CEPIVector , start=c(2008,1), end=c(2013,12), frequency=12)
 plot(CEPI, main="CEPI")
-plot(TotalAsIs_stl$time.series[,"trend"]/20000, type = "o", col = "red", ylab = "Trend")
+
 cor(TotalAsIs, CEPI)
 cor(TotalAsIs_stl$time.series[,"trend"], CEPI)
+CEPIlinearmodel <- lm(TotalAsIs_stl$time.series[,"trend"] ~ CEPI)
+summary(CEPIlinearmodel)
+plot(TotalAsIs_stl$time.series[,"trend"], col = "red", main = "TotalAsIs TREND = f(CEPI) ", ylab = "Trend")
+lines(-17401337 + 200320*CEPI, type = "o")
 ```
 
 ## Average monthly temperatures in Chulwalar
@@ -269,6 +273,9 @@ write.csv(compareModels, file='ChulwalarForecastModelsComparison.csv')
 ```
 
 # Summarize results
+Holt-Winter's Multiplicative model has the lowest RMSE (235296.6) when measured against historical (test) data.
+However it's only the second best peformance against 2014 actual data 311363.4
+Holt-Winter's Additive model is the best performer predicting 2014 data (RMSE = 271816.7)
 ```{r}
 rmse_labels <- c("SES", "Holt_Linear", "Holt_Exponential", "Damped", "DampedExpo", "HW_Add", "HW_Mul")
 rmse_values <- c(RMSE_SES, RMSE_LINEAR, RMSE_EXPO, RMSE_DAMPED, RMSE_DAMPEXPO, RMSE_HW_ADD, RMSE_HW_MUL)
@@ -288,9 +295,7 @@ compareModels$HW_Add_error <- TotalAsIs_2014 - HW_Add
 compareModels$HW_Mul_error <- TotalAsIs_2014 - HW_Mul
 errors_comp <- compareModels[, 9:15]
 boxplot(errors_comp, cex.axis=0.7, las = 2)
-
 ```
 
-Holt-Winter's Multiplicative model has the lowest RMSE (235296.6) when measured against historical (test) data.
-However it's only the second best peformance against 2014 actual data 311363.4
-Holt-Winter's Additive model is the best performer predicting 2014 data (RMSE = 271816.7)
+Boxplot confirms that the Holt-Winter's models have the best performance vs. 2014 actual data.
+All other 

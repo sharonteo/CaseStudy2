@@ -132,12 +132,6 @@ plot(CEPI, main="CEPI")
 ![](OPadilla_CaseStudy2_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
 
 ```r
-plot(TotalAsIs_stl$time.series[,"trend"]/20000, type = "o", col = "red", ylab = "Trend")
-```
-
-![](OPadilla_CaseStudy2_files/figure-html/unnamed-chunk-6-2.png)<!-- -->
-
-```r
 cor(TotalAsIs, CEPI)
 ```
 
@@ -152,6 +146,39 @@ cor(TotalAsIs_stl$time.series[,"trend"], CEPI)
 ```
 ## [1] 0.9826684
 ```
+
+```r
+CEPIlinearmodel <- lm(TotalAsIs_stl$time.series[,"trend"] ~ CEPI)
+summary(CEPIlinearmodel)
+```
+
+```
+## 
+## Call:
+## lm(formula = TotalAsIs_stl$time.series[, "trend"] ~ CEPI)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -324441  -53402   16525   57140  174783 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) -17401337     458860  -37.92   <2e-16 ***
+## CEPI           200320       4517   44.35   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 103500 on 70 degrees of freedom
+## Multiple R-squared:  0.9656,	Adjusted R-squared:  0.9651 
+## F-statistic:  1967 on 1 and 70 DF,  p-value: < 2.2e-16
+```
+
+```r
+plot(TotalAsIs_stl$time.series[,"trend"], col = "red", main = "TotalAsIs TREND = f(CEPI) ", ylab = "Trend")
+lines(-17401337 + 200320*CEPI, type = "o")
+```
+
+![](OPadilla_CaseStudy2_files/figure-html/unnamed-chunk-6-2.png)<!-- -->
 
 ## Average monthly temperatures in Chulwalar
 
@@ -441,18 +468,18 @@ summary(Model_holt_2)
 ## 
 ## Forecasts:
 ##          Point Forecast   Lo 80   Hi 80   Lo 95    Hi 95
-## Jan 2014        4488281 3099215 5887857 2345542  6629158
-## Feb 2014        4502175 2861357 6257079 2128116  7323529
-## Mar 2014        4516113 2667444 6499741 1898203  7817314
-## Apr 2014        4530094 2553797 6769361 1792569  8388530
-## May 2014        4544118 2373156 6985667 1678482  9114753
-## Jun 2014        4558186 2275155 7302086 1566299  9479338
-## Jul 2014        4572297 2123684 7420056 1443915  9937446
-## Aug 2014        4586452 2055678 7566505 1390141 10463548
-## Sep 2014        4600650 1954993 7774307 1278971 10820057
-## Oct 2014        4614893 1888944 7962505 1217511 11223463
-## Nov 2014        4629180 1789389 8208893 1137900 11860468
-## Dec 2014        4643510 1744766 8250227 1085250 12525380
+## Jan 2014        4488281 3054308 5926119 2312163  6688533
+## Feb 2014        4502175 2879623 6276979 2120290  7450299
+## Mar 2014        4516113 2661384 6479879 1982958  7920170
+## Apr 2014        4530094 2504012 6786831 1810923  8450633
+## May 2014        4544118 2366671 7031211 1694020  9046329
+## Jun 2014        4558186 2258474 7334741 1509477  9624421
+## Jul 2014        4572297 2172415 7469624 1474785 10152932
+## Aug 2014        4586452 2073692 7680026 1435221 10521221
+## Sep 2014        4600650 1980952 7810740 1292021 11227372
+## Oct 2014        4614893 1942472 8030288 1243822 11637870
+## Nov 2014        4629180 1814709 8180892 1154271 11924232
+## Dec 2014        4643510 1717930 8132446 1095138 12256534
 ```
 
 ```r
@@ -586,18 +613,18 @@ summary(Model_holt_4)
 ## 
 ## Forecasts:
 ##          Point Forecast   Lo 80   Hi 80   Lo 95    Hi 95
-## Jan 2014        4470648 3065606 5920192 2285464  6646570
-## Feb 2014        4473164 2860475 6186556 2089857  7227173
-## Mar 2014        4475630 2697600 6506055 1947047  7893279
-## Apr 2014        4478047 2513397 6768012 1833721  8429515
-## May 2014        4480418 2368637 6946647 1662933  8868422
-## Jun 2014        4482742 2208833 7140215 1564375  9341356
-## Jul 2014        4485020 2133398 7370588 1425982 10087731
-## Aug 2014        4487253 2030871 7572056 1352135 10461399
-## Sep 2014        4489443 1916720 7627629 1249170 10792228
-## Oct 2014        4491589 1831636 7814997 1131244 10923845
-## Nov 2014        4493694 1737555 8055948 1086413 11400754
-## Dec 2014        4495757 1643257 8016767 1019702 11717618
+## Jan 2014        4470648 3095326 5896346 2355333  6634145
+## Feb 2014        4473164 2837861 6183574 2076819  7282861
+## Mar 2014        4475630 2607475 6516938 1910769  7906482
+## Apr 2014        4478047 2456416 6737049 1725591  8408010
+## May 2014        4480418 2321795 6994686 1591436  9139392
+## Jun 2014        4482742 2159627 7184702 1470462  9476382
+## Jul 2014        4485020 2118316 7398823 1443014  9812439
+## Aug 2014        4487253 2022047 7562862 1332352 10575174
+## Sep 2014        4489443 1865747 7759279 1213458 11132124
+## Oct 2014        4491589 1843628 7941214 1163687 11108893
+## Nov 2014        4493694 1738705 8117004 1070918 11425208
+## Dec 2014        4495757 1650041 8122345 1013186 12252745
 ```
 
 ```r
@@ -835,6 +862,9 @@ write.csv(compareModels, file='ChulwalarForecastModelsComparison.csv')
 ```
 
 # Summarize results
+Holt-Winter's Multiplicative model has the lowest RMSE (235296.6) when measured against historical (test) data.
+However it's only the second best peformance against 2014 actual data 311363.4
+Holt-Winter's Additive model is the best performer predicting 2014 data (RMSE = 271816.7)
 
 ```r
 rmse_labels <- c("SES", "Holt_Linear", "Holt_Exponential", "Damped", "DampedExpo", "HW_Add", "HW_Mul")
@@ -887,6 +917,5 @@ boxplot(errors_comp, cex.axis=0.7, las = 2)
 
 ![](OPadilla_CaseStudy2_files/figure-html/unnamed-chunk-17-2.png)<!-- -->
 
-Holt-Winter's Multiplicative model has the lowest RMSE (235296.6) when measured against historical (test) data.
-However it's only the second best peformance against 2014 actual data 311363.4
-Holt-Winter's Additive model is the best performer predicting 2014 data (RMSE = 271816.7)
+Boxplot confirms that the Holt-Winter's models have the best performance vs. 2014 actual data.
+All other 
